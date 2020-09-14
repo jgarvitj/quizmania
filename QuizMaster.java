@@ -1,5 +1,6 @@
 package com.training.quizmania;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,7 +38,6 @@ public class QuizMaster {
 	}
 
 	public static void readObjects() throws FileNotFoundException, IOException, ClassNotFoundException {
-//		ObjectInputStream ois = null;//new ObjectInputStream(new FileInputStream("quiz.ser"));
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("quiz.txt"));
 		while (true) {
 			System.out.println("he");
@@ -47,11 +47,14 @@ public class QuizMaster {
 				temp = (Question) ois.readObject();
 				System.out.println("dskl");
 //				ois.close();
-			} catch (ClassNotFoundException e) {
+			}
+			catch (EOFException e) {
+				System.out.println("file reading finished");
+			}catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			} 
 			if (temp != null) {
 				qs.add(temp);
 				System.out.println(temp);

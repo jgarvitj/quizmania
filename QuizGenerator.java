@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 public class QuizGenerator {
 
-	public static void writeObject(Question q) {
+	public static void writeObject(ArrayList<Question> qs) {
 		ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream("quiz.txt", true));
-			oos.writeObject(q);
+			for (Question q : qs) {
+				oos.writeObject(q);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -30,9 +32,7 @@ public class QuizGenerator {
 		qs.add(new Question("How many mouth do people usually have", "1", "10", "13", "11", 1));
 		qs.add(new Question("How many head do people usually have", "1", "10", "13", "11", 1));
 
-		for (Question q : qs) {
-			writeObject(q);
-		}
+		writeObject(qs);
 
 	}
 
